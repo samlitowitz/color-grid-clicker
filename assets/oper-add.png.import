@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vdwa6tx24qyx"
-path="res://.godot/imported/operator-minus.png-03f12727c5a232a287ffaae0072dfe7a.ctex"
+uid="uid://g8b2w1vuf5cg"
+path="res://.godot/imported/oper-add.png-36d44f3398fc423a724cb16f35f7508d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/operator-minus.png"
-dest_files=["res://.godot/imported/operator-minus.png-03f12727c5a232a287ffaae0072dfe7a.ctex"]
+source_file="res://assets/oper-add.png"
+dest_files=["res://.godot/imported/oper-add.png-36d44f3398fc423a724cb16f35f7508d.ctex"]
 
 [params]
 

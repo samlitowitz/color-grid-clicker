@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4gufv22kmvws"
-path="res://.godot/imported/operator-division.png-0f6cacf0f5d7de6479f9a784bf476280.ctex"
+uid="uid://vdwa6tx24qyx"
+path="res://.godot/imported/oper-sub.png-1d47813797d8aa895832267eedf63001.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/operator-division.png"
-dest_files=["res://.godot/imported/operator-division.png-0f6cacf0f5d7de6479f9a784bf476280.ctex"]
+source_file="res://assets/oper-sub.png"
+dest_files=["res://.godot/imported/oper-sub.png-1d47813797d8aa895832267eedf63001.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbpm2oachk1sq"
-path="res://.godot/imported/operator-mult.png-17d515040089358e6a4356c8745d2041.ctex"
+uid="uid://dwpa482q72dp1"
+path="res://.godot/imported/lock.png-962ebed8d2713bfc3a87b85adb53c15d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/operator-mult.png"
-dest_files=["res://.godot/imported/operator-mult.png-17d515040089358e6a4356c8745d2041.ctex"]
+source_file="res://assets/lock.png"
+dest_files=["res://.godot/imported/lock.png-962ebed8d2713bfc3a87b85adb53c15d.ctex"]
 
 [params]
 

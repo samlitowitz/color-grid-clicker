@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g8b2w1vuf5cg"
-path="res://.godot/imported/operator-plus.png-4a128c7288174f2f80eec6d20f10dc57.ctex"
+uid="uid://dymfmm3padid4"
+path="res://.godot/imported/oper-mult.png-8b0ba476e345f8c239e018ee6872c171.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/operator-plus.png"
-dest_files=["res://.godot/imported/operator-plus.png-4a128c7288174f2f80eec6d20f10dc57.ctex"]
+source_file="res://assets/oper-mult.png"
+dest_files=["res://.godot/imported/oper-mult.png-8b0ba476e345f8c239e018ee6872c171.ctex"]
 
 [params]
 

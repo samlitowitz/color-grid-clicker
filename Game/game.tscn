@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bde4d74b4haqv"]
 
-[ext_resource type="PackedScene" uid="uid://c0cgisadop7jt" path="res://Game/game_grid.tscn" id="1_bk3v5"]
+[ext_resource type="Script" uid="uid://ba0qudn0j063c" path="res://Game/game.gd" id="1_bk3v5"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -11,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_bk3v5")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -34,25 +35,30 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VSplitContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VSplitContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Total" type="Label" parent="MarginContainer/VSplitContainer/MarginContainer/HSplitContainer"]
-unique_name_in_owner = true
+[node name="Label" type="Label" parent="MarginContainer/VSplitContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
-text = "0"
-vertical_alignment = 1
-
-[node name="Running" type="Label" parent="MarginContainer/VSplitContainer/MarginContainer/HSplitContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 30
-text = "0"
+text = "Score:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="GameGrid" parent="MarginContainer/VSplitContainer" instance=ExtResource("1_bk3v5")]
+[node name="Total" type="Label" parent="MarginContainer/VSplitContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VSplitContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+columns = 5
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
