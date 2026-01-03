@@ -11,7 +11,7 @@ const RESET_CLICKABLE_WAIT_TIME_SEC = 5.0
 @onready var _total_label = %Score
 @onready var _timer_label = %TimerLabel
 
-var _score: int = 0
+var _score: float = 0.0
 var _rnd: RandomNumberGenerator
 
 var _grid_clickables: Dictionary[String, Clickable] = {}
@@ -66,8 +66,7 @@ func _handle_clickable_click_event(event: ClickEvent) -> void:
 	if oper == Operator.OperType.ADD:
 		self._score += val
 	elif oper == Operator.OperType.MULT:
-		@warning_ignore("integer_division")
-		self._score *= (100 + 10 * val) / 100
+		self._score *= float(100 + 10 * val) / 100.0
 		should_gen_new_oper = self._rnd.randi_range(0, 100) < 80
 	
 	self._total_label.text = "%d" % self._score
