@@ -66,7 +66,8 @@ func _handle_clickable_click_event(event: ClickEvent) -> void:
 	if oper == Operator.OperType.ADD:
 		self._score += val
 	elif oper == Operator.OperType.MULT:
-		self._score *= 1.0 + float(val) / float(self.MAX_INIT_VALUE)
+		@warning_ignore("integer_division")
+		self._score *= (100 + 10 * val) / 100
 		should_gen_new_oper = self._rnd.randi_range(0, 100) < 80
 	
 	self._total_label.text = "%d" % self._score
@@ -100,7 +101,13 @@ func _reset_cell_clickable(uuid: String) -> void:
 		.with_oper(next_oper)
 
 func _color_from_value(value: int) -> Color:
-	return Color.WHITE.lerp(Color.GREEN, float(value % 10) / 10.0)
+	if value >= 8:
+		return Color(0xff4646ff)
+	if value >= 6:
+		return Color(0xd73535ff)
+	if value >= 4:
+		return Color(0xffa240ff) 
+	return Color(0xffd41dff)
 
 func _random_oper_type() -> Operator.OperType:
 	var v = self._rnd.randi_range(1, 100)
