@@ -62,14 +62,14 @@ func _handle_clickable_click_event(event: ClickEvent) -> void:
 	var oper = self._grid_cells[source].oper
 	var val = self._grid_cells[source].value
 	
+	var should_gen_new_oper = self._rnd.randi_range(0, 100) < 50
 	if oper == Operator.OperType.ADD:
 		self._score += val
 	elif oper == Operator.OperType.MULT:
 		self._score *= 1.0 + float(val) / float(self.MAX_INIT_VALUE)
+		should_gen_new_oper = self._rnd.randi_range(0, 100) < 80
 	
 	self._total_label.text = "%d" % self._score
-	
-	var should_gen_new_oper = self._rnd.randi_range(0, 100) < 20
 	
 	if not should_gen_new_oper:
 		self._grid_cells[source].value = val + 1
@@ -91,7 +91,7 @@ func _reset_cell_clickable(uuid: String) -> void:
 		return
 	if not self._grid_cells.has(uuid):
 		return
-	var next_oper = Operator.OperType.values().pick_random()
+	var next_oper = self._random_oper_type()
 	var next_val = self._rnd.randi_range(1, self.MAX_INIT_VALUE)
 	self._grid_cells[uuid].oper = next_oper
 	self._grid_cells[uuid].value = next_val
@@ -101,3 +101,9 @@ func _reset_cell_clickable(uuid: String) -> void:
 
 func _color_from_value(value: int) -> Color:
 	return Color.WHITE.lerp(Color.GREEN, float(value % 10) / 10.0)
+
+func _random_oper_type() -> Operator.OperType:
+	var v = self._rnd.randi_range(1, 100)
+	if v <= 10:
+		return Operator.OperType.MULT
+	return Operator.OperType.ADD
