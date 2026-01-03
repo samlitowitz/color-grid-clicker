@@ -3,12 +3,13 @@ class_name Game extends Node
 const UUID = preload("res://addons/uuid/uuid.gd")
 
 const CLICKABLE = preload("res://Game/clickable.tscn")
-const MAX_VALUE = 10
+const MAX_INIT_VALUE = 10
 const RESET_CLICKABLE_WAIT_TIME_SEC = 5.0
 
 @onready var _grid_container = %GridContainer
 @onready var _timer = %Timer
-@onready var _total_label = %Total
+@onready var _total_label = %Score
+@onready var _timer_label = %TimerLabel
 
 var _score: int = 0
 var _rnd: RandomNumberGenerator
@@ -29,25 +30,27 @@ func _ready() -> void:
 		
 		var cell = GridCell.new()
 		cell.uuid = uuid
-		cell.oper = Operator.OperType.values().pick_random()
-		cell.value = self._rnd.randi_range(0, self.MAX_VALUE)
 		
 		var clickable = CLICKABLE.instantiate()
-		clickable \
-			.with_uuid(uuid) \
-			.with_oper(cell.oper) \
-			.with_color(self._color_from_value(cell.value))
+		clickable.with_uuid(uuid)
 		clickable.click.connect(self._handle_clickable_click_event)
 		
 		self._grid_clickables[uuid] = clickable
 		self._grid_cells[uuid] = cell
-		
 		self._grid_last_click[uuid] = -1
+		
+		self._reset_cell_clickable(uuid)
 		
 		self._grid_container.add_child(clickable)
 	
 	self._timer.timeout.connect(self._handle_timeout)
 	self._timer.start(self.RESET_CLICKABLE_WAIT_TIME_SEC)
+
+func _process(_delta: float) -> void:
+	var dur_sec = Time.get_ticks_msec() / 1000.0
+	var m = int(dur_sec / 60.0)
+	var s = dur_sec - m * 60
+	self._timer_label.text = '%02d:%02d' % [m, s]
 
 func _handle_clickable_click_event(event: ClickEvent) -> void:
 	var source = event.source_uuid
@@ -58,24 +61,20 @@ func _handle_clickable_click_event(event: ClickEvent) -> void:
 	
 	var oper = self._grid_cells[source].oper
 	var val = self._grid_cells[source].value
-	var next_val = 0
 	
 	if oper == Operator.OperType.ADD:
 		self._score += val
-		next_val = val + 1
 	elif oper == Operator.OperType.MULT:
-		self._score *= val
-		next_val = val * val
+		self._score *= 1.0 + float(val) / float(self.MAX_INIT_VALUE)
 	
 	self._total_label.text = "%d" % self._score
 	
-	var should_gen_new_oper = (next_val > self.MAX_VALUE) \
-		or (oper == Operator.OperType.MULT and next_val == 0)
+	var should_gen_new_oper = self._rnd.randi_range(0, 100) < 20
 	
 	if not should_gen_new_oper:
-		self._grid_cells[source].value = next_val
+		self._grid_cells[source].value = val + 1
 		self._grid_clickables[source] \
-			.with_color(self._color_from_value(next_val))
+			.with_color(self._color_from_value(val + 1))
 		return
 	
 	self._reset_cell_clickable(source)
@@ -93,7 +92,7 @@ func _reset_cell_clickable(uuid: String) -> void:
 	if not self._grid_cells.has(uuid):
 		return
 	var next_oper = Operator.OperType.values().pick_random()
-	var next_val = self._rnd.randi_range(0, self.MAX_VALUE)
+	var next_val = self._rnd.randi_range(1, self.MAX_INIT_VALUE)
 	self._grid_cells[uuid].oper = next_oper
 	self._grid_cells[uuid].value = next_val
 	self._grid_clickables[uuid] \
@@ -101,4 +100,4 @@ func _reset_cell_clickable(uuid: String) -> void:
 		.with_oper(next_oper)
 
 func _color_from_value(value: int) -> Color:
-	return Color.WHITE.lerp(Color.GREEN, float(value) / float(self.MAX_VALUE))
+	return Color.WHITE.lerp(Color.GREEN, float(value % 10) / 10.0)
